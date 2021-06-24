@@ -27,8 +27,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _loading = false;
-  bool _showIndicator = false;
-  Offset drag = Offset.zero;
   List<ImageProvider> images = [];
 
   @override
@@ -38,9 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadImages(BuildContext c) async {
-    for (int i = 1; i <= 18; i++) {
-      images.add(AssetImage('assets/shoe/$i.jpeg'));
-      await precacheImage(AssetImage('assets/shoe/$i.jpeg'), c);
+    for (int i = 1; i <= 52; i++) {
+      images.add(AssetImage('assets/car/$i.png'));
+      await precacheImage(AssetImage('assets/car/$i.png'), c);
     }
     setState(() {
       _loading = true;
@@ -51,41 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _loading
-                    ? Expanded(
-                        child: Image360(
-                          key: UniqueKey(),
-                          images: images,
-                        ),
-                      )
-                    : Container(
-                        height: 100,
-                        width: 100,
-                        child: CircularProgressIndicator(),
-                      )
-              ],
-            ),
-            Transform.translate(
-              offset: drag,
-              child: Opacity(
-                opacity: _showIndicator ? 1.0 : 0.0,
-                child: Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.15),
-                    border: Border.all(color: Colors.white, width: 1.0),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            )
+            _loading
+                ? Expanded(
+                    child: Image360(
+                      key: UniqueKey(),
+                      images: images,
+                    ),
+                  )
+                : Container(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(),
+                  )
           ],
         ),
       ),
